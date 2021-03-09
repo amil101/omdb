@@ -1,0 +1,24 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" [(ngModel)]="movieService.searchText"
+                    (keyup)="keyUp($event)" placeholder="search">
+                <label for="floatingInput">Search Movie</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-4 col-lg-2 col-xl-2 text-center"
+            *ngFor="let movie of movieService.movies | paginate: { itemsPerPage: 10, currentPage: movieService.currentPage, totalItems: movieService.totalResult}"
+            (click)="gotoMovie(movie.imdbID)">
+            <img [src]="movie.Poster" [alt]="movie.Title" class="img-fluid">
+            <h6>Name: {{movie.Title}}</h6>
+            <h6>Type: {{movie.Type}}</h6>
+            <h6>Year: {{movie.Year}}</h6>
+        </div>
+    </div>
+    <ng-container *ngIf="movieService?.movies?.length != 0">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </ng-container>
+</div>

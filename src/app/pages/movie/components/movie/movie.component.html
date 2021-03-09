@@ -1,0 +1,31 @@
+<div class="container py-5">
+    <h1 class="text-center">{{movieInfo?.Title}}</h1>
+    <img [src]="movieInfo?.Poster" [alt]="movieInfo?.Title" class="img-fluid">
+    <table class="table">
+        <tbody>
+            <ng-container *ngFor="let item of movieInfo | keyvalue">
+                <tr *ngIf="item.key !== 'Ratings'; else rating">
+                    <th scope="row">{{item.key}}</th>
+                    <td>{{item.value}}</td>
+                </tr>
+                <ng-template #rating>
+                    <tr>
+                        <th scope="row">{{item.key}}</th>
+                        <td>
+                            <table class="table">
+                                <tbody>
+                                    <ng-container *ngFor="let ratings of item.value">
+                                        <tr>
+                                            <th scope="row">{{ratings.Source}}</th>
+                                            <td>{{ratings.Value}}</td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </ng-template>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
